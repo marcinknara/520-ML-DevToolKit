@@ -14,8 +14,10 @@ between such ML development toolkits and Software Engineering topics covered in 
 
 4. Deliverables:
 
--Final presentation    
--Write up
+-Final presentation (7 mminutes) 
+
+-Write up:
+
 -Includes lessons learned, experimental evaluation, and any development artifacts (documentation, version control repo (this repo), etc.)
 
 
