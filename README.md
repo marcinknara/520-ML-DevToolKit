@@ -14,7 +14,7 @@ between such ML development toolkits and Software Engineering topics covered in 
 
 4. Deliverables:
 
--Final presentation (7 mminutes) 
+-Final presentation (7 minutes) 
 
 -Write up:
 
@@ -33,6 +33,7 @@ Paper: https://arxiv.org/abs/2012.09951
 Toolkit: https://pypi.org/project/fairkit-learn/
 
 MidPoint presentation:
+
 ** The Problem. ** Tell us what you are going to build. If you are doing a research-focused project, tell us
 the research question(s) you will answer. If you are building a system, show us a prototype or describe
 the basic functionality and where your work will focus. Keep it focused. One slide. No more than 2
