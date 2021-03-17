@@ -9,11 +9,13 @@ TODO:
 2. Pick 1 (2 at most) datasets to work with
 3. "Additionally, the project will involve identifying connections
 between such ML development toolkits and Software Engineering topics covered in this course". 
-  -As easy as seeing the implementations of each function in the toolkits (probably in the documentation) and making a write up for them
+
+-As easy as seeing the implementations of each function in the toolkits (probably in the documentation) and making a write up for them
+
 4. Deliverables:
-  -Final presentation    
-  -Write up
-    -Includes lessons learned, experimental evaluation, and any development artifacts (documentation, version control repo (this repo), etc.)
+-Final presentation    
+-Write up
+-Includes lessons learned, experimental evaluation, and any development artifacts (documentation, version control repo (this repo), etc.)
 
 
 Alternatively, this project could involve comparing/contrasting two different ML development toolkits on the same data set.
