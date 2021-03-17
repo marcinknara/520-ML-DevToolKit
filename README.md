@@ -1,5 +1,8 @@
 # 520-ML-DevToolKit
 
+https://people.cs.umass.edu/~hconboy/class/2021Spring/CS520/finalProject.pdf
+
+
 TODO:
 
 1. Pick at least 2 toolkits off-the-bat (Neptune & Wights and biases?)
