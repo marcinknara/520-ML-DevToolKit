@@ -31,3 +31,21 @@ Toolkit: https://aif360.mybluemix.net
 4. Fairkit Learn
 Paper: https://arxiv.org/abs/2012.09951
 Toolkit: https://pypi.org/project/fairkit-learn/
+
+MidPoint presentation:
+** The Problem. ** Tell us what you are going to build. If you are doing a research-focused project, tell us
+the research question(s) you will answer. If you are building a system, show us a prototype or describe
+the basic functionality and where your work will focus. Keep it focused. One slide. No more than 2
+minutes total. Practice what you will say. Put a one-sentence summary on the slide.
+
+** The Design. ** Tell us how you will build what you are building. If you are building a system, tell us what
+technology you will use and show us the high–level architecture. If you are doing a research-focused
+project, tell us the design of your experiment(s). Again, no more than 2 minutes total. Practice what
+you will say. They key is to convince the audience you will succeed.
+
+** The Evaluation. ** Tell us how you will know you succeeded. If you are doing a research-focused
+project, tell us what data you will use, how you will know that your results make sense, what statistical
+tests you’ll apply, etc. If you are building a system, tell us your testing plan and how you will execute
+it. Again, no more than 2 minutes.
+
+** The Plan. ** Tell us (really quickly) what your planned timeline is and each group member’s responsibilities. Do not go into details; just show that you have a plan.
