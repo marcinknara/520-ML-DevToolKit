@@ -13,6 +13,7 @@ between such ML development toolkits and Software Engineering topics covered in 
 -As easy as seeing the implementations of each function in the toolkits (probably in the documentation) and making a write up for them
 
 4. Deliverables:
+
 -Final presentation    
 -Write up
 -Includes lessons learned, experimental evaluation, and any development artifacts (documentation, version control repo (this repo), etc.)
