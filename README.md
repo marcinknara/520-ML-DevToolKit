@@ -5,7 +5,7 @@ https://people.cs.umass.edu/~hconboy/class/2021Spring/CS520/finalProject.pdf
 
 TODO:
 
-1. Pick at least 2 toolkits off-the-bat (Neptune & Wights and biases?)
+1. Pick at least 2 toolkits off-the-bat (Neptune & Weights and biases?)
 2. Pick 1 (2 at most) datasets to work with
 3. "Additionally, the project will involve identifying connections
 between such ML development toolkits and Software Engineering topics covered in this course". 
