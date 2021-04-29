@@ -5,7 +5,8 @@ from ast import literal_eval
 from spotipy.oauth2 import SpotifyOAuth
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.model_selection import KFold
+from sklearn.metrics import accuracy_score
 
 # cleans up the genre column
 def genre_cleaner(genres):
@@ -67,5 +68,22 @@ y_data = x_data.pop('genres')
 
 # fit a multiclass random forest classifier with the track data
 rf = RandomForestClassifier(max_depth=10, max_features='sqrt')
-rf.fit(x_data, y_data)
+# rf.fit(x_data, y_data)
 
+# cross validation with K-Fold
+kf = KFold(n_splits=5)
+kf.get_n_splits(x_data)
+
+accuracy = 0
+for i, (train_index, test_index) in enumerate(kf.split(x_data)):
+    X_train, X_test = x_data[train_index], x_data[test_index]
+    Y_train, Y_test = y_data[train_index], y_data[test_index]
+
+    rf = RandomForestClassifier(max_depth=10, max_features='sqrt')
+    rf.fit(X_train, Y_train)
+    Y_pred = rf.predict(X_test)
+    acc = accuracy_score(Y_test, Y_pred)
+    accuracy += acc
+
+print("K-Fold with Random Forest")
+print("avg accuracy: " + str(accuracy/5))
