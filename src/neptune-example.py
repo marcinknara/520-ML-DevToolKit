@@ -1,25 +1,14 @@
-import os
-from dotenv import load_dotenv
-import neptune
+import numpy as np
+from time import sleep
+import neptune.new as neptune
 
-load_dotenv()
+run = neptune.init(project='common/quickstarts',
+                   api_token='ANONYMOUS')
 
-TOKEN = os.getenv('NEPTUNE_API_TOKEN')
+# log score
+run['single_metric'] = 0.62
 
-neptune.init('marcinknara/Neptune-Example', api_token=TOKEN)
-neptune.create_experiment('first-experiment')
-
-neptune.append__tag('great-idea-1')
-
-#code runs here (usually training and validation)
-
-# log some metric values
-neptune.log_metric('roc_auc', 0.93)
-
-#more code
-
-
-neptune.set_property('status', 'completed with no issues')
-
-
-
+for i in range(100):
+    sleep(0.2) # to see logging live
+    run['random_training_metric'].log(i * np.random.random())
+    run['other_random_training_metric'].log(0.5 * i * np.random.random())
