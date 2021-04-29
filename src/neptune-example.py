@@ -2,8 +2,8 @@ import numpy as np
 from time import sleep
 import neptune.new as neptune
 
-run = neptune.init(project='bfink99/example-project-pytorch',
-                   api_token='eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI4MDQ4NzE2OS0zMTRmLTQ1NmEtOWVmMy04MzQ5OGE3MzQ2ODMifQ==')
+run = neptune.init(project='common/quickstarts',
+                   api_token='ANONYMOUS')
 
 # log score
 run['single_metric'] = 0.62
