@@ -7,9 +7,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
-from sklearn.tree import DecisionTreeClassifier
-
-
 
 # cleans up the genre column
 def genre_cleaner(genres):
