@@ -2,48 +2,54 @@ from pandas import read_csv
 import numpy as np
 from ast import literal_eval
 
-from spotipy.oauth2 import SpotifyOAuth
+# from spotipy.oauth2 import SpotifyOAuth
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+
+
 
 # cleans up the genre column
 def genre_cleaner(genres):
-  genre = genres[0].lower()
-  genre = genre.split(" ")
-  return genre[len(genre)-1]
+    genre = genres[0].lower()
+    genre = genre.split(" ")
+    return genre[len(genre) - 1]
+
 
 # cleans up track feature response to get only necessary features
 def extract_features(track_features):
-  features_list = ["acousticness", "danceability", "duration_ms", "energy",
-                   "instrumentalness", "liveness", "loudness", "speechiness", "tempo", "valence"]
-  tracks = []
-  for track_feature in track_features:
-    track = []
-    for feature in features_list:
-      track.append(track_feature[feature])
+    features_list = ["acousticness", "danceability", "duration_ms", "energy",
+                     "instrumentalness", "liveness", "loudness", "speechiness", "tempo", "valence"]
+    tracks = []
+    for track_feature in track_features:
+        track = []
+        for feature in features_list:
+            track.append(track_feature[feature])
 
-    tracks.append(track)
+        tracks.append(track)
 
-  return np.array(tracks)
+    return np.array(tracks)
+
 
 # takes in list of tracks and returns list of track ids
 def get_track_ids(track_list):
-  track_ids = []
-  for track in track_list:
-    track_ids.append(track['track']['id'])
+    track_ids = []
+    for track in track_list:
+        track_ids.append(track['track']['id'])
 
-  return track_ids
+    return track_ids
+
 
 # takes in list of playlist objects, returns dictionary of {playlist names: playlist ids}
 def get_playlist_names(playlists):
-  playlist_dict = {}
-  playlist_arr = []
-  for playlist in playlists:
-    playlist_dict[playlist['name']] = playlist['id']
+    playlist_dict = {}
+    playlist_arr = []
+    for playlist in playlists:
+        playlist_dict[playlist['name']] = playlist['id']
 
-  return playlist_dict
+    return playlist_dict
 
 
 # reads song data (data_w_genres.csv) obtained from https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks
@@ -60,22 +66,27 @@ genre_counts = x_data['genres'].value_counts()
 min_tracks = 100
 
 for index, row in genre_counts.iteritems():
-  if row < min_tracks:
-    x_data.drop(x_data.index[x_data['genres'] == index], inplace=True)
+    if row < min_tracks:
+        x_data.drop(x_data.index[x_data['genres'] == index], inplace=True)
+
+x_data = x_data[(x_data['genres'] == 'rock') | (x_data['genres'] == 'metal') | (x_data['genres'] == 'rap') | (x_data['genres'] == 'pop') | (x_data['genres'] == 'jazz') | (x_data['genres'] == 'country') | (x_data['genres'] == 'r&b')]
 
 # split the data to make a classification set
-y_data = x_data.pop('genres')
+y_data = x_data['genres']
+x_data.drop(columns=['genres'], inplace=True)
 
-# fit a multiclass random forest classifier with the track data
-rf = RandomForestClassifier(max_depth=10, max_features='sqrt')
-# rf.fit(x_data, y_data)
+x_data.reset_index(drop=True, inplace=True)
+y_data.reset_index(drop=True, inplace=True)
+
+x_data = x_data.to_numpy()
+y_data = y_data.to_numpy()
 
 # cross validation with K-Fold
 kf = KFold(n_splits=5)
 kf.get_n_splits(x_data)
 
 accuracy = 0
-for i, (train_index, test_index) in enumerate(kf.split(x_data)):
+for train_index, test_index in kf.split(x_data):
     X_train, X_test = x_data[train_index], x_data[test_index]
     Y_train, Y_test = y_data[train_index], y_data[test_index]
 
@@ -86,4 +97,4 @@ for i, (train_index, test_index) in enumerate(kf.split(x_data)):
     accuracy += acc
 
 print("K-Fold with Random Forest")
-print("avg accuracy: " + str(accuracy/5))
+print("avg accuracy: " + str(accuracy / 5))
