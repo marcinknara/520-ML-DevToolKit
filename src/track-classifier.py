@@ -101,7 +101,8 @@ for train_index, test_index in kf.split(x_data):
 print("K-Fold with Random Forest")
 print("avg accuracy: " + str(accuracy / 5))
 
-
+# Logs (pretty much prints) to Neptune.ai dashboard
 run['avg accuracy:'] = accuracy / 5
+# Logs as a point in a Neptune.ai graph on the dashboard under "avg accuracy2:" name
 run['avg accuracy2:'].log(accuracy / 5)
 
