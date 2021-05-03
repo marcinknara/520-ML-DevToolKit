@@ -6,7 +6,8 @@ import neptune.new as neptune
 
 # Initializes a neptune project on the Neptune.AI website
 run = neptune.init(project='common/quickstarts',
-                   api_token='ANONYMOUS')
+                   api_token='ANONYMOUS',
+                   tags=['sklearn', 'kneigborsclassifier','randomforestclassifier'])
 
 # from spotipy.oauth2 import SpotifyOAuth
 from sklearn.neighbors import KNeighborsClassifier
@@ -118,7 +119,6 @@ for train_index, test_index in kf.split(x_data):
     acc = accuracy_score(Y_test, Y_pred)
     tree_accuracy += acc
     run['ExtraTreeClassifier Accuracy:'].log(acc)
-
 
 
 
