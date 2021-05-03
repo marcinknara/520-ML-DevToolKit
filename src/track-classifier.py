@@ -4,6 +4,7 @@ from ast import literal_eval
 from time import sleep
 import neptune.new as neptune
 
+# Initializes a neptune project on the Neptune.AI website
 run = neptune.init(project='common/quickstarts',
                    api_token='ANONYMOUS')
 
