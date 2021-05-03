@@ -1,6 +1,11 @@
 from pandas import read_csv
 import numpy as np
 from ast import literal_eval
+from time import sleep
+import neptune.new as neptune
+
+run = neptune.init(project='common/quickstarts',
+                   api_token='ANONYMOUS')
 
 # from spotipy.oauth2 import SpotifyOAuth
 from sklearn.neighbors import KNeighborsClassifier
@@ -95,3 +100,8 @@ for train_index, test_index in kf.split(x_data):
 
 print("K-Fold with Random Forest")
 print("avg accuracy: " + str(accuracy / 5))
+
+
+run['avg accuracy:'] = accuracy / 5
+run['avg accuracy2:'].log(accuracy / 5)
+
