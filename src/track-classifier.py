@@ -94,7 +94,8 @@ kf.get_n_splits(x_data)
 forrest_accuracy = 0
 k_accuracy = 0
 tree_accuracy = 0
-for train_index, test_index in kf.split(x_data):
+for i, (train_index, test_index) in enumerate(kf.split(x_data)):
+    print(i)
     X_train, X_test = x_data[train_index], x_data[test_index]
     Y_train, Y_test = y_data[train_index], y_data[test_index]
 
