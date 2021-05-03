@@ -13,6 +13,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
+from sklearn.tree import ExtraTreeClassifier
 
 # cleans up the genre column
 def genre_cleaner(genres):
@@ -85,25 +86,55 @@ x_data = x_data.to_numpy()
 y_data = y_data.to_numpy()
 
 # cross validation with K-Fold
-kf = KFold(n_splits=5)
+num_folds = 5
+kf = KFold(n_splits=num_folds)
 kf.get_n_splits(x_data)
 
-accuracy = 0
+forrest_accuracy = 0
+k_accuracy = 0
+tree_accuracy = 0
 for train_index, test_index in kf.split(x_data):
     X_train, X_test = x_data[train_index], x_data[test_index]
     Y_train, Y_test = y_data[train_index], y_data[test_index]
 
-    rf = RandomForestClassifier(max_depth=10, max_features='sqrt')
-    rf.fit(X_train, Y_train)
-    Y_pred = rf.predict(X_test)
+    clf = RandomForestClassifier(max_depth=10, max_features='sqrt')
+    clf.fit(X_train, Y_train)
+    Y_pred = clf.predict(X_test)
     acc = accuracy_score(Y_test, Y_pred)
-    accuracy += acc
+    forrest_accuracy += acc
+    run['RandomForrestClassifier Accuracy:'].log(acc)
+
+    clf = KNeighborsClassifier()
+    clf.fit(X_train, Y_train)
+    Y_pred = clf.predict(X_test)
+    acc = accuracy_score(Y_test, Y_pred)
+    k_accuracy += acc
+    run['KNeighborsClassifier Accuracy:'].log(acc)
+
+
+    clf = ExtraTreeClassifier()
+    clf.fit(X_train, Y_train)
+    Y_pred = clf.predict(X_test)
+    acc = accuracy_score(Y_test, Y_pred)
+    tree_accuracy += acc
+    run['ExtraTreeClassifier Accuracy:'].log(acc)
+
+
+
+
+
 
 print("K-Fold with Random Forest")
-print("avg accuracy: " + str(accuracy / 5))
+print("avg accuracy: " + str(forrest_accuracy / num_folds))
+
+print("K-Fold with K-Nearest")
+print("avg accuracy: " + str(k_accuracy / num_folds))
+
+print("K-Fold with ExtraTreeClassifier")
+print("avg accuracy: " + str(tree_accuracy / num_folds))
 
 # Logs (pretty much prints) to Neptune.ai dashboard
-run['avg accuracy:'] = accuracy / 5
+#run['avg accuracy:'] = accuracy / 5
 # Logs as a point in a Neptune.ai graph on the dashboard under "avg accuracy2:" name
-run['avg accuracy2:'].log(accuracy / 5)
+#run['avg accuracy2:'].log(accuracy / 5)
 
