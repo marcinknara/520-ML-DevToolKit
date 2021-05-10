@@ -11,3 +11,6 @@ The Kaggle dataset can be found in the "data" folder of the repository.
 
 Main executable:
 The Python main application can be found in the "src" folder, and run by running the Python file "track-classifier.py"
+
+For results:
+To see the results of our classifer, run "track-classifier.py". The console will then display the accuracies of our various models as well as post a link to the console to the Neptune.AI web interface- where users can view more robust analytics of our models and project.
