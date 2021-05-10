@@ -3,6 +3,7 @@ import numpy as np
 from ast import literal_eval
 from time import sleep
 import neptune.new as neptune
+import neptune.new.integrations.sklearn as npt_utils
 
 # Initializes a neptune project on the Neptune.AI website
 run = neptune.init(project='common/quickstarts',
@@ -94,12 +95,15 @@ kf.get_n_splits(x_data)
 forrest_accuracy = 0
 k_accuracy = 0
 tree_accuracy = 0
-for train_index, test_index in kf.split(x_data):
+for i, (train_index, test_index) in enumerate(kf.split(x_data)):
+    print(i)
     X_train, X_test = x_data[train_index], x_data[test_index]
     Y_train, Y_test = y_data[train_index], y_data[test_index]
 
     clf = RandomForestClassifier(max_depth=10, max_features='sqrt')
     clf.fit(X_train, Y_train)
+    run['random_forest_summary'] = npt_utils.create_classifier_summary(
+        clf, X_train, X_test, Y_train, Y_test)
     Y_pred = clf.predict(X_test)
     acc = accuracy_score(Y_test, Y_pred)
     forrest_accuracy += acc
@@ -107,6 +111,8 @@ for train_index, test_index in kf.split(x_data):
 
     clf = KNeighborsClassifier()
     clf.fit(X_train, Y_train)
+    run['k_neighbors_summary'] = npt_utils.create_classifier_summary(
+        clf, X_train, X_test, Y_train, Y_test)
     Y_pred = clf.predict(X_test)
     acc = accuracy_score(Y_test, Y_pred)
     k_accuracy += acc
@@ -115,12 +121,12 @@ for train_index, test_index in kf.split(x_data):
 
     clf = ExtraTreeClassifier()
     clf.fit(X_train, Y_train)
+    run['extra_tree_summary'] = npt_utils.create_classifier_summary(
+        clf, X_train, X_test, Y_train, Y_test)
     Y_pred = clf.predict(X_test)
     acc = accuracy_score(Y_test, Y_pred)
     tree_accuracy += acc
     run['ExtraTreeClassifier Accuracy:'].log(acc)
-
-
 
 
 
@@ -132,9 +138,4 @@ print("avg accuracy: " + str(k_accuracy / num_folds))
 
 print("K-Fold with ExtraTreeClassifier")
 print("avg accuracy: " + str(tree_accuracy / num_folds))
-
-# Logs (pretty much prints) to Neptune.ai dashboard
-#run['avg accuracy:'] = accuracy / 5
-# Logs as a point in a Neptune.ai graph on the dashboard under "avg accuracy2:" name
-#run['avg accuracy2:'].log(accuracy / 5)
 
