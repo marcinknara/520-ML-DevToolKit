@@ -7,7 +7,8 @@ import neptune.new.integrations.sklearn as npt_utils
 
 # Initializes a neptune project on the Neptune.AI website
 run = neptune.init(project='common/quickstarts',
-                   api_token='ANONYMOUS')
+                   api_token='ANONYMOUS',
+                   tags=['sklearn', 'kneigborsclassifier','randomforestclassifier'])
 
 # from spotipy.oauth2 import SpotifyOAuth
 from sklearn.neighbors import KNeighborsClassifier
@@ -137,12 +138,4 @@ print("avg accuracy: " + str(k_accuracy / num_folds))
 
 print("K-Fold with ExtraTreeClassifier")
 print("avg accuracy: " + str(tree_accuracy / num_folds))
-
-
-
-
-# Logs (pretty much prints) to Neptune.ai dashboard
-#run['avg accuracy:'] = accuracy / 5
-# Logs as a point in a Neptune.ai graph on the dashboard under "avg accuracy2:" name
-#run['avg accuracy2:'].log(accuracy / 5)
 
